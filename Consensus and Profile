@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+alldata = open('rosalind_cons.txt','r').readlines()  
+n,name,seq,seqhash = 1,'','',{}
+for i in range(0,len(alldata)):
+	if alldata[i][0] == '>':
+		seq,name,n = '',n,n + 1
+	elif alldata[i][0] != '>':
+		seq += alldata[i].rstrip()
+	i += 1	
+	seqhash[name] = seq
+
+list_a,list_t,list_c,list_g,seqall = [],[],[],[],[]
+for y in range(0,len(seqhash[1])): 
+	a,t,c,g = 0,0,0,0	
+	for x in range(1,len(seqhash) + 1):
+		if seqhash[x][y] == 'A':a = a + 1			
+		elif seqhash[x][y] == 'T':t = t + 1			
+		elif seqhash[x][y] == 'C':c = c + 1			
+		elif seqhash[x][y] == 'G':g = g + 1
+	list_a.append(a)
+	list_t.append(t)
+	list_c.append(c)
+	list_g.append(g)
+	compare = [a,t,c,g]
+	if compare.index(max(compare)) == 0:seqall.append('A')
+	elif compare.index(max(compare)) == 1:seqall.append('T')
+	elif compare.index(max(compare)) == 2:seqall.append('C')
+	elif compare.index(max(compare)) == 3:seqall.append('G')
+
+print ''.join(str(i) for i in seqall)
+print  'A: ' + ' '.join(str(i) for i in list_a)
+print  'C: ' + ' '.join(str(i) for i in list_c)
+print  'G: ' + ' '.join(str(i) for i in list_g)
+print  'T: ' + ' '.join(str(i) for i in list_t)
+
+
+
+	
+
+ 
